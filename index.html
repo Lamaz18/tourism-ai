@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tourism AI - Thailand Dashboard</title>
+
+    <link rel="icon" type="image/png" href="./ChatGPT Image Sep 2, 2026, 02_53_10 PM.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            TA
+        </div>
+
+        <div>
+            <h2>Tourism AI</h2>
+            <span>Thailand Dashboard</span>
+        </div>
+
+    </div>
+
+    <nav>
+
+        <button class="nav-item active"
+                onclick="showPage('dashboard', this)">
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('mapPage', this)">
+            <span class="nav-icon">⌖</span>
+            <span>Thailand Map</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('provinces', this)">
+            <span class="nav-icon">▦</span>
+            <span>Provinces</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('ai', this)">
+            <span class="nav-icon">✦</span>
+            <span>AI Analysis</span>
+            <small class="menu-badge">AI</small>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('trends', this)">
+            <span class="nav-icon">⌁</span>
+            <span>Tourism Trends</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('factors', this)">
+            <span class="nav-icon">◈</span>
+            <span>Factors</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('ranking', this)">
+            <span class="nav-icon">☷</span>
+            <span>Ranking</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('shap', this)">
+            <span class="nav-icon">◇</span>
+            <span>SHAP Analysis</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('model', this)">
+            <span class="nav-icon">◌</span>
+            <span>Model Performance</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('budget', this)">
+            <span class="nav-icon">฿</span>
+            <span>Travel Budget</span>
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('reports', this)">
+            <span class="nav-icon">▤</span>
+            <span>Reports</span>
+        </button>
+
+    </nav>
+
+    <div class="system-card">
+
+        <div class="online">
+            <span></span>
+            System Online
+        </div>
+
+        <small>Last update</small>
+
+        <p>2 ก.ย. 2569</p>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard" class="page active-page">
+
+    <div class="topbar">
+
+        <div>
+
+            <div class="eyebrow">
+                TOURISM INTELLIGENCE
+            </div>
+
+            <h1>
+                ยินดีต้อนรับ 👋
+            </h1>
+
+            <p>
+                ระบบวิเคราะห์ปัจจัยการท่องเที่ยวภายในประเทศไทย
+                ด้วย Explainable Machine Learning
+            </p>
+
+        </div>
+
+        <select id="yearSelect" onchange="changeYear()">
+            <option value="2568">พ.ศ. 2568</option>
+            <option value="2567">พ.ศ. 2567</option>
+            <option value="2566">พ.ศ. 2566</option>
+            <option value="2565">พ.ศ. 2565</option>
+            <option value="2564">พ.ศ. 2564</option>
+            <option value="2563">พ.ศ. 2563</option>
+            <option value="2562">พ.ศ. 2562</option>
+        </select>
+
+    </div>
+
+
+    <!-- STAT -->
+
+    <div class="stats">
+
+        <div class="stat blue">
+
+            <div class="stat-icon">⌖</div>
+
+            <div>
+                <span>จังหวัดทั้งหมด</span>
+                <strong>77</strong>
+                <small>จังหวัด</small>
+            </div>
+
+        </div>
+
+
+        <div class="stat cyan">
+
+            <div class="stat-icon">♙</div>
+
+            <div>
+                <span>นักท่องเที่ยว</span>
+                <strong id="touristValue">162.3M</strong>
+                <small>คน</small>
+            </div>
+
+        </div>
+
+
+        <div class="stat blue2">
+
+            <div class="stat-icon">↗</div>
+
+            <div>
+                <span>รายได้ท่องเที่ยว</span>
+                <strong id="incomeValue">2.38T</strong>
+                <small>บาท</small>
+            </div>
+
+        </div>
+
+
+        <div class="stat darkblue">
+
+            <div class="stat-icon">☆</div>
+
+            <div>
+                <span>Tourism Score</span>
+                <strong>67.8</strong>
+                <small>คะแนน</small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+        <div>
+
+            <div class="card chart-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>แนวโน้มการท่องเที่ยวรายปี</h2>
+
+                        <p>
+                            จำนวนนักท่องเที่ยวและรายได้
+                        </p>
+                    </div>
+
+                    <span class="info">i</span>
+
+                </div>
+
+                <canvas id="tourismChart"></canvas>
+
+            </div>
+
+
+            <div class="bottom-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            ปัจจัยที่มีผลต่อการท่องเที่ยว
+                        </h2>
+
+                        <span class="top5">
+                            TOP 5
+                        </span>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div class="factor-info">
+                            <span>👥 รายได้ประชากร</span>
+                            <strong>32%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width:82%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div class="factor-info">
+                            <span>🏝 แหล่งท่องเที่ยว</span>
+                            <strong>26%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width:67%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div class="factor-info">
+                            <span>🏨 จำนวนที่พัก</span>
+                            <strong>18%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width:48%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div class="factor-info">
+                            <span>🚗 ค่าเดินทาง</span>
+                            <strong>14%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width:36%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div class="factor-info">
+                            <span>☀ สภาพอากาศ</span>
+                            <strong>10%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div style="width:26%"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Tourism Score สูงสุด
+                        </h2>
+
+                    </div>
+
+                    <div id="topRanking"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="card map-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>แผนที่ประเทศไทย</h2>
+
+                        <p>
+                            Tourism Score รายจังหวัด
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="map"></div>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h2>
+                        ข้อมูลเชิงลึกจาก AI
+                    </h2>
+
+                    <p>
+                        ระบบตัวอย่างพบว่ารายได้ประชากร
+                        แหล่งท่องเที่ยว และจำนวนที่พัก
+                        เป็นปัจจัยสำคัญต่อ Tourism Score
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     THAILAND MAP
+===================================================== -->
+
+<section id="mapPage" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            GEOGRAPHICAL ANALYSIS
+        </div>
+
+        <h1>
+            Thailand Map
+        </h1>
+
+        <p>
+            วิเคราะห์ Tourism Score รายจังหวัด
+        </p>
+
+    </div>
+
+    <div class="card full-map">
+
+        <div id="mapLarge"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROVINCES
+===================================================== -->
+
+<section id="provinces" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            PROVINCE DATA
+        </div>
+
+        <h1>
+            จังหวัดทั้งหมด
+        </h1>
+
+        <p>
+            ข้อมูลการท่องเที่ยวรายจังหวัด
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="provinceSearch"
+            placeholder="ค้นหาจังหวัด..."
+            onkeyup="searchProvince()">
+
+    </div>
+
+
+    <div
+        class="province-grid"
+        id="provinceGrid">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI ANALYSIS
+===================================================== -->
+
+<section id="ai" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            EXPLAINABLE MACHINE LEARNING
+        </div>
+
+        <h1>
+            AI Analysis
+        </h1>
+
+        <p>
+            วิเคราะห์ปัจจัยที่ส่งผลต่อการท่องเที่ยว
+        </p>
+
+    </div>
+
+
+    <div class="card ai-form">
+
+        <h2>
+            วิเคราะห์จังหวัด
+        </h2>
+
+        <p>
+            เลือกจังหวัดเพื่อวิเคราะห์ Tourism Score
+        </p>
+
+
+        <select id="provinceSelect">
+
+            <option value="ภูเก็ต">ภูเก็ต</option>
+            <option value="เชียงใหม่">เชียงใหม่</option>
+            <option value="กระบี่">กระบี่</option>
+            <option value="ชลบุรี">ชลบุรี</option>
+            <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+            <option value="ขอนแก่น">ขอนแก่น</option>
+            <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+
+        </select>
+
+
+        <button onclick="runAI()">
+            ✦ วิเคราะห์ด้วย AI
+        </button>
+
+    </div>
+
+
+    <div
+        id="aiResult"
+        class="ai-result">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOURISM TRENDS
+===================================================== -->
+
+<section id="trends" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            TOURISM DATA
+        </div>
+
+        <h1>
+            Tourism Trends
+        </h1>
+
+        <p>
+            แนวโน้มการท่องเที่ยวของประเทศไทย
+        </p>
+
+    </div>
+
+
+    <div class="card trend-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Tourism Trend
+                </h2>
+
+                <p>
+                    เปรียบเทียบแนวโน้มรายปี
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="trend-chart-container">
+
+            <canvas id="trendChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FACTORS
+===================================================== -->
+
+<section id="factors" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            FEATURE IMPORTANCE
+        </div>
+
+        <h1>
+            Tourism Factors
+        </h1>
+
+        <p>
+            ปัจจัยที่มีผลต่อ Tourism Score
+        </p>
+
+    </div>
+
+
+    <div class="factor-page-grid">
+
+        <div class="card factor-main">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Feature Importance
+                    </h2>
+
+                    <p>
+                        ความสำคัญของตัวแปรจากโมเดล
+                    </p>
+
+                </div>
+
+                <span class="top5">
+                    TOP 5
+                </span>
+
+            </div>
+
+
+            <div class="factor-row">
+
+                <div class="factor-info">
+
+                    <span>
+                        👥 รายได้ประชากร
+                    </span>
+
+                    <strong>
+                        32%
+                    </strong>
+
+                </div>
+
+                <div class="factor-track">
+
+                    <div style="width:82%"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="factor-row">
+
+                <div class="factor-info">
+
+                    <span>
+                        🏝 แหล่งท่องเที่ยว
+                    </span>
+
+                    <strong>
+                        26%
+                    </strong>
+
+                </div>
+
+                <div class="factor-track">
+
+                    <div style="width:67%"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="factor-row">
+
+                <div class="factor-info">
+
+                    <span>
+                        🏨 จำนวนที่พัก
+                    </span>
+
+                    <strong>
+                        18%
+                    </strong>
+
+                </div>
+
+                <div class="factor-track">
+
+                    <div style="width:54%"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="factor-row">
+
+                <div class="factor-info">
+
+                    <span>
+                        🚗 ค่าใช้จ่ายเดินทาง
+                    </span>
+
+                    <strong>
+                        14%
+                    </strong>
+
+                </div>
+
+                <div class="factor-track">
+
+                    <div style="width:42%"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="factor-row">
+
+                <div class="factor-info">
+
+                    <span>
+                        ☀ สภาพอากาศ
+                    </span>
+
+                    <strong>
+                        10%
+                    </strong>
+
+                </div>
+
+                <div class="factor-track">
+
+                    <div style="width:30%"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card factor-explanation">
+
+            <div class="ai-icon">
+                ✦
+            </div>
+
+            <span class="eyebrow">
+                EXPLAINABLE AI
+            </span>
+
+            <h2>
+                ปัจจัยที่มีอิทธิพลสูง
+            </h2>
+
+            <p>
+                จากตัวอย่างผลการวิเคราะห์
+                รายได้ประชากรเป็นปัจจัยที่มี
+                ความสำคัญสูงที่สุด
+                รองลงมาคือจำนวนแหล่งท่องเที่ยว
+                และจำนวนที่พัก
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RANKING
+===================================================== -->
+
+<section id="ranking" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            TOURISM RANKING
+        </div>
+
+        <h1>
+            Province Ranking
+        </h1>
+
+        <p>
+            จัดอันดับจังหวัดตาม Tourism Score
+        </p>
+
+    </div>
+
+
+    <div class="card ranking-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Tourism Score Ranking
+                </h2>
+
+                <p>
+                    จังหวัดที่มีคะแนนสูงสุด
+                </p>
+
+            </div>
+
+            <span class="top5">
+                TOP PROVINCES
+            </span>
+
+        </div>
+
+
+        <div id="rankingTable"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHAP ANALYSIS
+===================================================== -->
+
+<section id="shap" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            MODEL EXPLAINABILITY
+        </div>
+
+        <h1>
+            SHAP Analysis
+        </h1>
+
+        <p>
+            วิเคราะห์ความสำคัญของตัวแปรด้วย SHAP
+        </p>
+
+    </div>
+
+
+    <div class="card shap-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    SHAP Feature Importance
+                </h2>
+
+                <p>
+                    แสดงผลกระทบของแต่ละปัจจัยต่อ Tourism Score
+                </p>
+
+            </div>
+
+            <span class="top5">
+                SHAP
+            </span>
+
+        </div>
+
+
+        <div class="shap-chart-container">
+
+            <canvas id="shapChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MODEL PERFORMANCE
+===================================================== -->
+
+<section id="model" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            MACHINE LEARNING
+        </div>
+
+        <h1>
+            Model Performance
+        </h1>
+
+        <p>
+            เปรียบเทียบประสิทธิภาพของโมเดล Machine Learning
+        </p>
+
+    </div>
+
+
+    <div class="model-grid">
+
+
+        <div class="card model-card">
+
+            <div class="model-number">
+                01
+            </div>
+
+            <h2>
+                XGBoost Regression
+            </h2>
+
+            <span class="model-type">
+                Regression
+            </span>
+
+            <div class="model-metrics">
+
+                <div>
+                    <span>
+                        R²
+                    </span>
+
+                    <strong>
+                        0.91
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        RMSE
+                    </span>
+
+                    <strong>
+                        0.24
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card model-card">
+
+            <div class="model-number">
+                02
+            </div>
+
+            <h2>
+                LightGBM Regression
+            </h2>
+
+            <span class="model-type">
+                Regression
+            </span>
+
+            <div class="model-metrics">
+
+                <div>
+                    <span>
+                        R²
+                    </span>
+
+                    <strong>
+                        0.89
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        RMSE
+                    </span>
+
+                    <strong>
+                        0.27
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card model-card">
+
+            <div class="model-number">
+                03
+            </div>
+
+            <h2>
+                CatBoost Regression
+            </h2>
+
+            <span class="model-type">
+                Regression
+            </span>
+
+            <div class="model-metrics">
+
+                <div>
+                    <span>
+                        R²
+                    </span>
+
+                    <strong>
+                        0.87
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        RMSE
+                    </span>
+
+                    <strong>
+                        0.29
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card model-card">
+
+            <div class="model-number">
+                04
+            </div>
+
+            <h2>
+                Random Forest
+            </h2>
+
+            <span class="model-type">
+                Regression
+            </span>
+
+            <div class="model-metrics">
+
+                <div>
+                    <span>
+                        R²
+                    </span>
+
+                    <strong>
+                        0.84
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        RMSE
+                    </span>
+
+                    <strong>
+                        0.32
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card model-card">
+
+            <div class="model-number">
+                05
+            </div>
+
+            <h2>
+                Gradient Boosting
+            </h2>
+
+            <span class="model-type">
+                Regression
+            </span>
+
+            <div class="model-metrics">
+
+                <div>
+                    <span>
+                        R²
+                    </span>
+
+                    <strong>
+                        0.82
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        RMSE
+                    </span>
+
+                    <strong>
+                        0.35
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card model-note">
+
+        <div class="ai-icon">
+            ✦
+        </div>
+
+        <div>
+
+            <span class="eyebrow">
+                MODEL NOTE
+            </span>
+
+            <h2>
+                XGBoost มีประสิทธิภาพดีที่สุดในตัวอย่างนี้
+            </h2>
+
+            <p>
+                จากค่าตัวอย่าง XGBoost มีค่า R² สูงที่สุด
+                และมีค่า RMSE ต่ำที่สุด
+                อย่างไรก็ตาม การเลือกโมเดลจริงควรใช้
+                Cross-validation และ Dataset จริงร่วมด้วย
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TRAVEL BUDGET
+===================================================== -->
+
+<section id="budget" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            TRAVEL PLANNER
+        </div>
+
+        <h1>
+            Travel Budget Planner
+        </h1>
+
+        <p>
+            วางแผนและคำนวณค่าใช้จ่ายในการท่องเที่ยว
+        </p>
+
+    </div>
+
+
+    <div class="budget-layout">
+
+
+        <!-- FORM -->
+
+        <div class="card budget-form">
+
+            <h2>
+                กำหนดงบประมาณ
+            </h2>
+
+            <p>
+                กรอกข้อมูลการเดินทางของคุณ
+            </p>
+
+
+            <label>
+                📍 จังหวัดปลายทาง
+            </label>
+
+            <select id="travelProvince">
+
+                <option value="กรุงเทพมหานคร">
+                    กรุงเทพมหานคร
+                </option>
+
+                <option value="กระบี่">
+                    กระบี่
+                </option>
+
+                <option value="กาญจนบุรี">
+                    กาญจนบุรี
+                </option>
+
+                <option value="ขอนแก่น">
+                    ขอนแก่น
+                </option>
+
+                <option value="เชียงใหม่">
+                    เชียงใหม่
+                </option>
+
+                <option value="เชียงราย">
+                    เชียงราย
+                </option>
+
+                <option value="ชลบุรี">
+                    ชลบุรี
+                </option>
+
+                <option value="ตราด">
+                    ตราด
+                </option>
+
+                <option value="นครราชสีมา">
+                    นครราชสีมา
+                </option>
+
+                <option value="นครปฐม">
+                    นครปฐม
+                </option>
+
+                <option value="นครศรีธรรมราช">
+                    นครศรีธรรมราช
+                </option>
+
+                <option value="น่าน">
+                    น่าน
+                </option>
+
+                <option value="บุรีรัมย์">
+                    บุรีรัมย์
+                </option>
+
+                <option value="พังงา">
+                    พังงา
+                </option>
+
+                <option value="พัทลุง">
+                    พัทลุง
+                </option>
+
+                <option value="เพชรบุรี">
+                    เพชรบุรี
+                </option>
+
+                <option value="เพชรบูรณ์">
+                    เพชรบูรณ์
+                </option>
+
+                <option value="ภูเก็ต">
+                    ภูเก็ต
+                </option>
+
+                <option value="แม่ฮ่องสอน">
+                    แม่ฮ่องสอน
+                </option>
+
+                <option value="ร้อยเอ็ด">
+                    ร้อยเอ็ด
+                </option>
+
+                <option value="ระยอง">
+                    ระยอง
+                </option>
+
+                <option value="ราชบุรี">
+                    ราชบุรี
+                </option>
+
+                <option value="ลำปาง">
+                    ลำปาง
+                </option>
+
+                <option value="ลำพูน">
+                    ลำพูน
+                </option>
+
+                <option value="เลย">
+                    เลย
+                </option>
+
+                <option value="สงขลา">
+                    สงขลา
+                </option>
+
+                <option value="สกลนคร">
+                    สกลนคร
+                </option>
+
+                <option value="สมุทรปราการ">
+                    สมุทรปราการ
+                </option>
+
+                <option value="สมุทรสงคราม">
+                    สมุทรสงคราม
+                </option>
+
+                <option value="สระบุรี">
+                    สระบุรี
+                </option>
+
+                <option value="สุโขทัย">
+                    สุโขทัย
+                </option>
+
+                <option value="สุราษฎร์ธานี">
+                    สุราษฎร์ธานี
+                </option>
+
+                <option value="สุรินทร์">
+                    สุรินทร์
+                </option>
+
+                <option value="หนองคาย">
+                    หนองคาย
+                </option>
+
+                <option value="อุดรธานี">
+                    อุดรธานี
+                </option>
+
+                <option value="อุบลราชธานี">
+                    อุบลราชธานี
+                </option>
+
+            </select>
+
+
+            <label>
+                งบประมาณทั้งหมด (บาท)
+            </label>
+
+            <input
+                type="number"
+                id="budgetTotal"
+                value="10000"
+                min="0">
+
+
+            <label>
+                จำนวนวัน
+            </label>
+
+            <input
+                type="number"
+                id="travelDays"
+                value="3"
+                min="1">
+
+
+            <label>
+                จำนวนคน
+            </label>
+
+            <input
+                type="number"
+                id="travelPeople"
+                value="2"
+                min="1">
+
+
+            <label>
+                ค่าที่พัก / คืน
+            </label>
+
+            <input
+                type="number"
+                id="hotelCost"
+                value="1200"
+                min="0">
+
+
+            <label>
+                ค่าอาหาร / คน / วัน
+            </label>
+
+            <input
+                type="number"
+                id="foodCost"
+                value="500"
+                min="0">
+
+
+            <label>
+                ค่าเดินทางทั้งหมด
+            </label>
+
+            <input
+                type="number"
+                id="transportCost"
+                value="2500"
+                min="0">
+
+
+            <label>
+                ค่าใช้จ่ายอื่น ๆ
+            </label>
+
+            <input
+                type="number"
+                id="otherCost"
+                value="1000"
+                min="0">
+
+
+            <button onclick="calculateBudget()">
+                ฿ คำนวณงบประมาณ
+            </button>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="card budget-result">
+
+            <span class="eyebrow">
+                BUDGET SUMMARY
+            </span>
+
+            <h2>
+                สรุปค่าใช้จ่าย
+            </h2>
+
+
+            <div class="budget-destination">
+
+                <span>
+                    📍 จังหวัดปลายทาง
+                </span>
+
+                <strong id="provinceResult">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="budget-item">
+
+                <span>
+                    🏨 ค่าที่พัก
+                </span>
+
+                <strong id="hotelResult">
+                    0 บาท
+                </strong>
+
+            </div>
+
+
+            <div class="budget-item">
+
+                <span>
+                    🍜 ค่าอาหาร
+                </span>
+
+                <strong id="foodResult">
+                    0 บาท
+                </strong>
+
+            </div>
+
+
+            <div class="budget-item">
+
+                <span>
+                    🚗 ค่าเดินทาง
+                </span>
+
+                <strong id="transportResult">
+                    0 บาท
+                </strong>
+
+            </div>
+
+
+            <div class="budget-item">
+
+                <span>
+                    📦 ค่าใช้จ่ายอื่น ๆ
+                </span>
+
+                <strong id="otherResult">
+                    0 บาท
+                </strong>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="budget-total">
+
+                <span>
+                    ค่าใช้จ่ายรวม
+                </span>
+
+                <strong id="totalResult">
+                    0 บาท
+                </strong>
+
+            </div>
+
+
+            <div class="budget-remaining">
+
+                <span>
+                    งบประมาณคงเหลือ
+                </span>
+
+                <strong id="remainingResult">
+                    0 บาท
+                </strong>
+
+            </div>
+
+
+            <div
+                class="budget-status"
+                id="budgetStatus">
+
+                กรอกข้อมูลแล้วกดคำนวณ
+
+            </div>
+
+
+            <div class="budget-breakdown">
+
+                <div>
+
+                    <span>
+                        ค่าใช้จ่าย / คน
+                    </span>
+
+                    <strong id="perPersonResult">
+                        0 บาท
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        ค่าใช้จ่าย / วัน
+                    </span>
+
+                    <strong id="perDayResult">
+                        0 บาท
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REPORTS
+===================================================== -->
+
+<section id="reports" class="page">
+
+    <div class="page-title">
+
+        <div class="eyebrow">
+            REPORT CENTER
+        </div>
+
+        <h1>
+            Reports
+        </h1>
+
+        <p>
+            รายงานผลการวิเคราะห์
+        </p>
+
+    </div>
+
+
+    <div class="report-grid">
+
+        <div class="card report">
+
+            <span>PDF</span>
+
+            <h2>
+                Tourism Analysis Report
+            </h2>
+
+            <p>
+                รายงานผลการวิเคราะห์
+                การท่องเที่ยวประเทศไทย
+            </p>
+
+            <button onclick="showReportMessage()">
+                ดูรายงาน
+            </button>
+
+        </div>
+
+
+        <div class="card report">
+
+            <span>DATA</span>
+
+            <h2>
+                Province Dataset
+            </h2>
+
+            <p>
+                ข้อมูลจังหวัดสำหรับ
+                Machine Learning
+            </p>
+
+            <button onclick="showDataMessage()">
+                ดูข้อมูล
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- JavaScript -->
+
+<script src="./script.js"></script>
+
+</body>
+</html>
