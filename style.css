@@ -1143,7 +1143,7 @@ button:not(.nav-item):hover {
    RESPONSIVE เดิม
 ========================================================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 600px) {
 
     .stats {
         grid-template-columns: repeat(2, 1fr);
@@ -1259,12 +1259,19 @@ button:not(.nav-item):hover {
     .budget-breakdown {
         grid-template-columns: 1fr;
     }
+
+    :root {
+    --premium-primary: #2563eb;
+    --premium-cyan: #06b6d4;
+    --premium-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+    --premium-shadow-hover: 0 18px 45px rgba(15, 23, 42, .14);
+}
+
 }
 
 
 /* =========================================================
    PREMIUM UI
-   *** ต้องอยู่นอก @media ด้านบน ***
 ========================================================= */
 
 :root {
