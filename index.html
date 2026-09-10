@@ -235,135 +235,126 @@
 
     <div class="dashboard-grid">
 
-        <div>
+      <div class="dashboard-grid">
 
-            <div class="card chart-card">
-
-                <div class="card-header">
-
-                    <div>
-                        <h2>แนวโน้มการท่องเที่ยวรายปี</h2>
-
-                        <p>
-                            จำนวนนักท่องเที่ยวและรายได้
-                        </p>
-                    </div>
-
-                    <span class="info">i</span>
-
-                </div>
-
-                <canvas id="tourismChart"></canvas>
-
+    <!-- ================================
+         CHART แนวโน้มการท่องเที่ยว
+    ================================= -->
+    <div class="card chart-card">
+        <div class="card-header">
+            <div>
+                <h2>แนวโน้มการท่องเที่ยวรายปี</h2>
+                <p>จำนวนนักท่องเที่ยวและรายได้</p>
             </div>
-
-
-            <div class="bottom-grid">
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <h2>
-                            ปัจจัยที่มีผลต่อการท่องเที่ยว
-                        </h2>
-
-                        <span class="top5">
-                            TOP 5
-                        </span>
-
-                    </div>
-
-
-                    <div class="factor">
-
-                        <div class="factor-info">
-                            <span>👥 รายได้ประชากร</span>
-                            <strong>32%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:82%"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="factor">
-
-                        <div class="factor-info">
-                            <span>🏝 แหล่งท่องเที่ยว</span>
-                            <strong>26%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:67%"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="factor">
-
-                        <div class="factor-info">
-                            <span>🏨 จำนวนที่พัก</span>
-                            <strong>18%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:48%"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="factor">
-
-                        <div class="factor-info">
-                            <span>🚗 ค่าเดินทาง</span>
-                            <strong>14%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:36%"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="factor">
-
-                        <div class="factor-info">
-                            <span>☀ สภาพอากาศ</span>
-                            <strong>10%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:26%"></div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <h2>
-                            Tourism Score สูงสุด
-                        </h2>
-
-                    </div>
-
-                    <div id="topRanking"></div>
-
-                </div>
-
-            </div>
-
+            <div class="info">i</div>
         </div>
+
+        <canvas id="tourismChart"></canvas>
+    </div>
+
+
+    <!-- ================================
+         CHART รายจังหวัด
+    ================================= -->
+    <div class="card province-chart-card">
+
+        <div class="card-header">
+            <div>
+                <h2>Tourism Score รายจังหวัด</h2>
+                <p>วิเคราะห์คะแนนการท่องเที่ยวของจังหวัด</p>
+            </div>
+        </div>
+
+        <!-- เลือกจังหวัด -->
+        <div class="province-chart-select">
+            <label for="provinceChartSelect">
+                เลือกจังหวัด
+            </label>
+
+            <select id="provinceChartSelect"
+                    onchange="updateProvinceChart()">
+            </select>
+        </div>
+
+        <!-- คะแนน -->
+        <div class="province-score-header">
+            <div>
+                <span>Tourism Score</span>
+                <strong id="provinceChartScore">0</strong>
+            </div>
+
+            <div class="province-score-badge">
+                AI Analysis
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="province-chart-container">
+            <canvas id="provinceChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h2>ปัจจัยที่มีผลต่อการท่องเที่ยว</h2>
+        </div>
+        <span class="top5">TOP 5</span>
+    </div>
+
+    <div class="factor">
+        <div class="factor-info">
+            <span>🗺️ จังหวัด</span>
+            <strong>10%</strong>
+        </div>
+        <div class="progress">
+            <div style="width: 10%;"></div>
+        </div>
+    </div>
+
+    <div class="factor">
+        <div class="factor-info">
+            <span>📅 เวลาและปฏิทิน</span>
+            <strong>15%</strong>
+        </div>
+        <div class="progress">
+            <div style="width: 15%;"></div>
+        </div>
+    </div>
+
+    <div class="factor">
+        <div class="factor-info">
+            <span>👥 ประวัติผู้เข้าพัก</span>
+            <strong>30%</strong>
+        </div>
+        <div class="progress">
+            <div style="width: 30%;"></div>
+        </div>
+    </div>
+
+    <div class="factor">
+        <div class="factor-info">
+            <span>🏨 ที่พักและการเข้าพัก</span>
+            <strong>25%</strong>
+        </div>
+        <div class="progress">
+            <div style="width: 25%;"></div>
+        </div>
+    </div>
+
+    <div class="factor">
+        <div class="factor-info">
+            <span>🛏️ การเข้าพัก</span>
+            <strong>20%</strong>
+        </div>
+        <div class="progress">
+            <div style="width: 20%;"></div>
+        </div>
+    </div>
+</div>
 
 
         <div>
@@ -487,6 +478,50 @@
         class="province-grid"
         id="provinceGrid">
     </div>
+
+    <div class="card province-chart-card">
+
+    <h2>Tourism Score รายจังหวัด</h2>
+
+    <p>
+        วิเคราะห์คะแนนการท่องเที่ยวของจังหวัด
+    </p>
+
+    <label for="provinceChartSelect">
+        เลือกจังหวัด
+    </label>
+
+    <select
+        id="provinceChartSelect"
+        class="province-chart-select">
+
+        <option value="">
+            กำลังโหลดจังหวัด...
+        </option>
+
+    </select>
+
+
+    <div class="province-score-summary">
+
+        <div>
+            <span>Tourism Score</span>
+
+            <strong id="provinceChartScore">
+                0
+            </strong>
+        </div>
+
+    </div>
+
+
+    <div class="province-chart-wrapper">
+
+        <canvas id="provinceChart"></canvas>
+
+    </div>
+
+</div>
 
 </section>
 

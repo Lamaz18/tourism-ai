@@ -11,6 +11,7 @@
 let tourismChart = null;
 let trendChart = null;
 let shapChart = null;
+let provinceChart = null;
 
 let map = null;
 let mapLarge = null;
@@ -293,7 +294,7 @@ const provinces = [
 
 function showPage(pageId, element) {
 
-    document.querySelectorAll(".page").forEach(page => {
+    document.querySelectorAll(".page").forEach(function(page) {
         page.classList.remove("active-page");
     });
 
@@ -306,7 +307,7 @@ function showPage(pageId, element) {
 
     page.classList.add("active-page");
 
-    document.querySelectorAll(".nav-item").forEach(item => {
+    document.querySelectorAll(".nav-item").forEach(function(item) {
         item.classList.remove("active");
     });
 
@@ -314,7 +315,7 @@ function showPage(pageId, element) {
         element.classList.add("active");
     }
 
-    setTimeout(function () {
+    setTimeout(function() {
 
         if (pageId === "mapPage" && mapLarge) {
             mapLarge.invalidateSize();
@@ -339,7 +340,13 @@ function showPage(pageId, element) {
             shapChart.update("none");
         }
 
+        if (pageId === "dashboard" && provinceChart) {
+            provinceChart.resize();
+            provinceChart.update("none");
+        }
+
     }, 250);
+
 }
 
 
@@ -351,13 +358,17 @@ function changeYear() {
 
     const select = document.getElementById("yearSelect");
 
-    if (!select) return;
+    if (!select) {
+        return;
+    }
 
     const year = select.value;
 
     const data = tourismData[year];
 
-    if (!data) return;
+    if (!data) {
+        return;
+    }
 
     const touristValue =
         document.getElementById("touristValue");
@@ -396,93 +407,96 @@ function createTourismChart() {
         tourismChart = null;
     }
 
-    const context = canvas.getContext("2d");
+    tourismChart = new Chart(
+        canvas.getContext("2d"),
+        {
 
-    tourismChart = new Chart(context, {
+            type: "line",
 
-        type: "line",
+            data: {
 
-        data: {
+                labels: [
+                    "2562",
+                    "2563",
+                    "2564",
+                    "2565",
+                    "2566",
+                    "2567",
+                    "2568"
+                ],
 
-            labels: [
-                "2562",
-                "2563",
-                "2564",
-                "2565",
-                "2566",
-                "2567",
-                "2568"
-            ],
+                datasets: [
 
-            datasets: [
+                    {
+                        label: "นักท่องเที่ยว",
 
-                {
-                    label: "นักท่องเที่ยว",
-                    data: [
-                        200,
-                        71,
-                        39.7,
-                        88.2,
-                        139.8,
-                        155.6,
-                        162.3
-                    ],
+                        data: [
+                            200,
+                            71,
+                            39.7,
+                            88.2,
+                            139.8,
+                            155.6,
+                            162.3
+                        ],
 
-                    borderWidth: 2,
+                        borderWidth: 2,
 
-                    tension: .35,
+                        tension: 0.35,
 
-                    pointRadius: 3
-                },
+                        pointRadius: 3
+                    },
 
-                {
-                    label: "รายได้ท่องเที่ยว (ล้านล้านบาท)",
-                    data: [
-                        3.01,
-                        1.23,
-                        .63,
-                        1.08,
-                        2.17,
-                        2.32,
-                        2.38
-                    ],
+                    {
+                        label: "รายได้ท่องเที่ยว (ล้านล้านบาท)",
 
-                    borderWidth: 2,
+                        data: [
+                            3.01,
+                            1.23,
+                            0.63,
+                            1.08,
+                            2.17,
+                            2.32,
+                            2.38
+                        ],
 
-                    tension: .35,
+                        borderWidth: 2,
 
-                    pointRadius: 3
-                }
+                        tension: 0.35,
 
-            ]
+                        pointRadius: 3
+                    }
 
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-                    position: "bottom"
-                }
+                ]
 
             },
 
-            scales: {
+            options: {
 
-                y: {
-                    beginAtZero: true
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        position: "bottom"
+                    }
+
+                },
+
+                scales: {
+
+                    y: {
+                        beginAtZero: true
+                    }
+
                 }
 
             }
 
         }
-
-    });
+    );
 
 }
 
@@ -539,7 +553,6 @@ function createTrendChart() {
                         ],
 
                         borderWidth: 1
-
                     }
 
                 ]
@@ -553,16 +566,20 @@ function createTrendChart() {
                 maintainAspectRatio: false,
 
                 plugins: {
+
                     legend: {
                         position: "bottom"
                     }
+
                 },
 
                 scales: {
+
                     y: {
                         beginAtZero: true,
                         max: 100
                     }
+
                 }
 
             }
@@ -621,7 +638,6 @@ function createShapChart() {
                         ],
 
                         borderWidth: 1
-
                     }
 
                 ]
@@ -669,16 +685,20 @@ function createTopRanking() {
     const container =
         document.getElementById("topRanking");
 
-    if (!container) return;
+    if (!container) {
+        return;
+    }
 
     const top =
         [...provinces]
-            .sort((a, b) => b.score - a.score)
+            .sort(function(a, b) {
+                return b.score - a.score;
+            })
             .slice(0, 5);
 
     container.innerHTML = "";
 
-    top.forEach((province, index) => {
+    top.forEach(function(province, index) {
 
         const item =
             document.createElement("div");
@@ -698,7 +718,11 @@ function createTopRanking() {
                 </strong>
 
                 <div class="rank-bar">
-                    <span style="width:${province.score}%"></span>
+
+                    <span
+                        style="width:${province.score}%">
+                    </span>
+
                 </div>
 
             </div>
@@ -725,11 +749,13 @@ function renderProvinces(list = provinces) {
     const container =
         document.getElementById("provinceGrid");
 
-    if (!container) return;
+    if (!container) {
+        return;
+    }
 
     container.innerHTML = "";
 
-    list.forEach(province => {
+    list.forEach(function(province) {
 
         const card =
             document.createElement("div");
@@ -776,17 +802,21 @@ function searchProvince() {
     const input =
         document.getElementById("provinceSearch");
 
-    if (!input) return;
+    if (!input) {
+        return;
+    }
 
     const keyword =
         input.value.trim().toLowerCase();
 
     const filtered =
-        provinces.filter(province =>
-            province.name
+        provinces.filter(function(province) {
+
+            return province.name
                 .toLowerCase()
-                .includes(keyword)
-        );
+                .includes(keyword);
+
+        });
 
     renderProvinces(filtered);
 
@@ -805,15 +835,17 @@ function runAI() {
     const result =
         document.getElementById("aiResult");
 
-    if (!select || !result) return;
+    if (!select || !result) {
+        return;
+    }
 
     const provinceName =
         select.value;
 
     const province =
-        provinces.find(
-            item => item.name === provinceName
-        );
+        provinces.find(function(item) {
+            return item.name === provinceName;
+        });
 
     const score =
         province ? province.score : 70;
@@ -884,9 +916,12 @@ function runAI() {
                     </h2>
 
                     <p>
-                        ปัจจัยตัวอย่างที่มีอิทธิพลต่อคะแนน
-                        ได้แก่ รายได้ประชากร แหล่งท่องเที่ยว
-                        จำนวนที่พัก ค่าเดินทาง และสภาพอากาศ
+                        ระบบวิเคราะห์ปัจจัยที่เกี่ยวข้องกับ
+                        Tourism Score ของจังหวัด
+                        ได้แก่ จังหวัด เวลาและปฏิทิน
+                        ประวัติผู้เข้าพัก
+                        ที่พักและการเข้าพัก
+                        และข้อมูลการเข้าพัก
                     </p>
 
                 </div>
@@ -909,11 +944,15 @@ function showRanking() {
     const container =
         document.getElementById("rankingTable");
 
-    if (!container) return;
+    if (!container) {
+        return;
+    }
 
     const sorted =
         [...provinces]
-            .sort((a, b) => b.score - a.score);
+            .sort(function(a, b) {
+                return b.score - a.score;
+            });
 
     let html = `
 
@@ -925,21 +964,13 @@ function showRanking() {
 
                     <tr>
 
-                        <th>
-                            อันดับ
-                        </th>
+                        <th>อันดับ</th>
 
-                        <th>
-                            จังหวัด
-                        </th>
+                        <th>จังหวัด</th>
 
-                        <th>
-                            ภาค
-                        </th>
+                        <th>ภาค</th>
 
-                        <th>
-                            Tourism Score
-                        </th>
+                        <th>Tourism Score</th>
 
                     </tr>
 
@@ -949,7 +980,7 @@ function showRanking() {
 
     `;
 
-    sorted.forEach((province, index) => {
+    sorted.forEach(function(province, index) {
 
         let rankClass = "";
 
@@ -1063,27 +1094,20 @@ function createMap() {
     ).addTo(map);
 
 
-    provinces.forEach(province => {
-
-        /*
-         * ตัวอย่างตำแหน่งแบบประมาณการ
-         * ใช้สำหรับ Demo เท่านั้น
-         */
+    provinces.forEach(function(province) {
 
         const lat =
-            12.5 +
-            Math.random() * 7;
+            12.5 + Math.random() * 7;
 
         const lng =
-            98.5 +
-            Math.random() * 5;
+            98.5 + Math.random() * 5;
 
         const marker =
             L.circleMarker(
                 [lat, lng],
                 {
                     radius: 7,
-                    fillOpacity: .75,
+                    fillOpacity: 0.75,
                     weight: 1
                 }
             ).addTo(map);
@@ -1139,22 +1163,20 @@ function createLargeMap() {
     ).addTo(mapLarge);
 
 
-    provinces.forEach(province => {
+    provinces.forEach(function(province) {
 
         const lat =
-            12.5 +
-            Math.random() * 7;
+            12.5 + Math.random() * 7;
 
         const lng =
-            98.5 +
-            Math.random() * 5;
+            98.5 + Math.random() * 5;
 
         const marker =
             L.circleMarker(
                 [lat, lng],
                 {
                     radius: 8,
-                    fillOpacity: .75,
+                    fillOpacity: 0.75,
                     weight: 1
                 }
             ).addTo(mapLarge);
@@ -1185,51 +1207,37 @@ function calculateBudget() {
 
     const total =
         Number(
-            document.getElementById(
-                "budgetTotal"
-            )?.value
+            document.getElementById("budgetTotal")?.value
         ) || 0;
 
     const days =
         Number(
-            document.getElementById(
-                "travelDays"
-            )?.value
+            document.getElementById("travelDays")?.value
         ) || 1;
 
     const people =
         Number(
-            document.getElementById(
-                "travelPeople"
-            )?.value
+            document.getElementById("travelPeople")?.value
         ) || 1;
 
     const hotelPerNight =
         Number(
-            document.getElementById(
-                "hotelCost"
-            )?.value
+            document.getElementById("hotelCost")?.value
         ) || 0;
 
     const foodPerPersonDay =
         Number(
-            document.getElementById(
-                "foodCost"
-            )?.value
+            document.getElementById("foodCost")?.value
         ) || 0;
 
     const transport =
         Number(
-            document.getElementById(
-                "transportCost"
-            )?.value
+            document.getElementById("transportCost")?.value
         ) || 0;
 
     const other =
         Number(
-            document.getElementById(
-                "otherCost"
-            )?.value
+            document.getElementById("otherCost")?.value
         ) || 0;
 
 
@@ -1314,11 +1322,11 @@ function calculateBudget() {
 
 
     const status =
-        document.getElementById(
-            "budgetStatus"
-        );
+        document.getElementById("budgetStatus");
 
-    if (!status) return;
+    if (!status) {
+        return;
+    }
 
     status.classList.remove(
         "success",
@@ -1422,12 +1430,461 @@ function showDataMessage() {
 
 
 /* =========================================================
+   PROVINCE TOURISM SCORE CHART
+========================================================= */
+
+/*
+    ส่วนนี้คือส่วนที่แก้ปัญหา
+    Dropdown จังหวัดเลือกไม่ได้
+*/
+
+
+function getProvinceDataForChart() {
+
+    if (
+        Array.isArray(provinces) &&
+        provinces.length > 0
+    ) {
+
+        return provinces;
+
+    }
+
+    console.error(
+        "ไม่พบข้อมูล provinces"
+    );
+
+    return [];
+
+}
+
+
+/* =========================================================
+   CREATE PROVINCE CHART
+========================================================= */
+
+function createProvinceChart() {
+
+    const select =
+        document.getElementById(
+            "provinceChartSelect"
+        );
+
+    const canvas =
+        document.getElementById(
+            "provinceChart"
+        );
+
+    const scoreElement =
+        document.getElementById(
+            "provinceChartScore"
+        );
+
+
+    if (!select) {
+
+        console.error(
+            "ไม่พบ provinceChartSelect"
+        );
+
+        return;
+
+    }
+
+
+    if (!canvas) {
+
+        console.error(
+            "ไม่พบ provinceChart"
+        );
+
+        return;
+
+    }
+
+
+    const provinceData =
+        getProvinceDataForChart();
+
+
+    if (provinceData.length === 0) {
+
+        select.innerHTML =
+            '<option value="">ไม่พบข้อมูลจังหวัด</option>';
+
+        if (scoreElement) {
+            scoreElement.textContent = "0";
+        }
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       ล้าง Dropdown
+    ----------------------------------------------------- */
+
+    select.innerHTML = "";
+
+
+    /* -----------------------------------------------------
+       เพิ่มจังหวัดทั้งหมด
+    ----------------------------------------------------- */
+
+    provinceData.forEach(function(province) {
+
+        if (!province || !province.name) {
+            return;
+        }
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            province.name;
+
+        option.textContent =
+            province.name;
+
+        select.appendChild(option);
+
+    });
+
+
+    /* -----------------------------------------------------
+       เลือกจังหวัดแรก
+    ----------------------------------------------------- */
+
+    if (select.options.length > 0) {
+
+        select.selectedIndex = 0;
+
+    }
+
+
+    /* -----------------------------------------------------
+       เมื่อเปลี่ยนจังหวัด
+    ----------------------------------------------------- */
+
+    select.onchange = function() {
+
+        updateProvinceChart();
+
+    };
+
+
+    /* -----------------------------------------------------
+       สร้าง Chart ครั้งแรก
+    ----------------------------------------------------- */
+
+    updateProvinceChart();
+
+}
+
+
+/* =========================================================
+   UPDATE PROVINCE CHART
+========================================================= */
+
+function updateProvinceChart() {
+
+    const select =
+        document.getElementById(
+            "provinceChartSelect"
+        );
+
+    const canvas =
+        document.getElementById(
+            "provinceChart"
+        );
+
+    const scoreElement =
+        document.getElementById(
+            "provinceChartScore"
+        );
+
+
+    if (!select || !canvas) {
+        return;
+    }
+
+
+    const provinceName =
+        select.value;
+
+
+    const province =
+        provinces.find(function(item) {
+
+            return item.name === provinceName;
+
+        });
+
+
+    if (!province) {
+
+        if (scoreElement) {
+            scoreElement.textContent = "0";
+        }
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Tourism Score ปัจจุบัน
+    ----------------------------------------------------- */
+
+    const currentScore =
+        Number(province.score) || 0;
+
+
+    if (scoreElement) {
+
+        scoreElement.textContent =
+            currentScore.toFixed(1);
+
+    }
+
+
+    /* -----------------------------------------------------
+       ข้อมูลย้อนหลัง 2562 - 2568
+
+       DEMO
+
+       ใช้ Score ปัจจุบันสร้างแนวโน้มย้อนหลัง
+
+       เมื่อนำ Dataset จริงมาใช้
+       สามารถเปลี่ยนส่วนนี้เป็นข้อมูลจริงได้
+    ----------------------------------------------------- */
+
+    const scoreData = [
+
+        Math.max(
+            0,
+            currentScore - 12
+        ),
+
+        Math.max(
+            0,
+            currentScore - 10
+        ),
+
+        Math.max(
+            0,
+            currentScore - 8
+        ),
+
+        Math.max(
+            0,
+            currentScore - 6
+        ),
+
+        Math.max(
+            0,
+            currentScore - 4
+        ),
+
+        Math.max(
+            0,
+            currentScore - 2
+        ),
+
+        currentScore
+
+    ];
+
+
+    /* -----------------------------------------------------
+       ลบ Chart เดิม
+    ----------------------------------------------------- */
+
+    if (provinceChart) {
+
+        provinceChart.destroy();
+
+        provinceChart = null;
+
+    }
+
+
+    /* -----------------------------------------------------
+       สร้าง Chart ใหม่
+    ----------------------------------------------------- */
+
+    provinceChart =
+        new Chart(
+            canvas.getContext("2d"),
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: [
+
+                        "2562",
+                        "2563",
+                        "2564",
+                        "2565",
+                        "2566",
+                        "2567",
+                        "2568"
+
+                    ],
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Tourism Score",
+
+                            data:
+                                scoreData,
+
+                            borderWidth:
+                                3,
+
+                            tension:
+                                0.4,
+
+                            pointRadius:
+                                4,
+
+                            pointHoverRadius:
+                                6,
+
+                            fill:
+                                true,
+
+                            backgroundColor:
+                                "rgba(37, 99, 235, 0.10)",
+
+                            borderColor:
+                                "#2563eb",
+
+                            pointBackgroundColor:
+                                "#06b6d4",
+
+                            pointBorderColor:
+                                "#ffffff",
+
+                            pointBorderWidth:
+                                2
+
+                        }
+
+                    ]
+
+                },
+
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+
+                    plugins: {
+
+                        legend: {
+
+                            display:
+                                false
+
+                        },
+
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label:
+                                    function(context) {
+
+                                        return (
+                                            " Tourism Score: " +
+                                            Number(
+                                                context.raw
+                                            ).toFixed(1)
+                                        );
+
+                                    }
+
+                            }
+
+                        }
+
+                    },
+
+
+                    scales: {
+
+                        y: {
+
+                            min:
+                                0,
+
+                            max:
+                                100,
+
+                            ticks: {
+
+                                stepSize:
+                                    20
+
+                            },
+
+                            title: {
+
+                                display:
+                                    true,
+
+                                text:
+                                    "Tourism Score"
+
+                            }
+
+                        },
+
+
+                        x: {
+
+                            title: {
+
+                                display:
+                                    true,
+
+                                text:
+                                    "ปี"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
    INITIALIZE APPLICATION
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    function() {
 
         if (appInitialized) {
             return;
@@ -1436,7 +1893,9 @@ document.addEventListener(
         appInitialized = true;
 
 
-        /* Charts */
+        /* -------------------------------------------------
+           Charts
+        ------------------------------------------------- */
 
         createTourismChart();
 
@@ -1444,27 +1903,37 @@ document.addEventListener(
 
         createShapChart();
 
+        createProvinceChart();
 
-        /* Ranking */
+
+        /* -------------------------------------------------
+           Ranking
+        ------------------------------------------------- */
 
         createTopRanking();
 
         showRanking();
 
 
-        /* Provinces */
+        /* -------------------------------------------------
+           Provinces
+        ------------------------------------------------- */
 
         renderProvinces();
 
 
-        /* Maps */
+        /* -------------------------------------------------
+           Maps
+        ------------------------------------------------- */
 
         createMap();
 
         createLargeMap();
 
 
-        /* Budget */
+        /* -------------------------------------------------
+           Budget
+        ------------------------------------------------- */
 
         calculateBudget();
 

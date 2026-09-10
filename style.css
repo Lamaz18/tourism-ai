@@ -432,6 +432,440 @@ button:not(.nav-item):hover {
    FACTORS
 ========================================================= */
 
+/* =========================================================
+   TOURISM AI - THAILAND DASHBOARD
+   STYLE.CSS
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --blue-soft: #dbeafe;
+    --cyan: #0891b2;
+    --dark: #172033;
+    --text: #334155;
+    --muted: #718096;
+    --border: #e5eaf2;
+    --bg: #f5f8fc;
+    --white: #fff;
+    --success: #16a34a;
+    --danger: #dc2626;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", "Noto Sans Thai", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid var(--border);
+    padding: 25px 18px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 8px 25px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--blue);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.logo h2 {
+    font-size: 17px;
+    color: var(--dark);
+}
+
+.logo span {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 12px 13px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #64748b;
+    text-align: left;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.nav-item:hover {
+    background: #f1f6ff;
+    color: var(--blue);
+}
+
+.nav-item.active {
+    background: #eaf2ff;
+    color: var(--blue);
+    font-weight: 600;
+}
+
+.nav-icon {
+    width: 22px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.menu-badge {
+    margin-left: auto;
+    background: var(--blue-soft);
+    color: var(--blue);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.system-card {
+    margin-top: auto;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.online {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--success);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.online span {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+}
+
+.system-card small {
+    display: block;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.system-card p {
+    margin-top: 3px;
+    font-size: 11px;
+    color: var(--text);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    margin-left: 250px;
+    padding: 35px;
+    min-height: 100vh;
+}
+
+.page {
+    display: none;
+    animation: pageIn .25s ease;
+}
+
+.active-page {
+    display: block;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.eyebrow {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    margin-bottom: 7px;
+}
+
+h1 {
+    color: var(--dark);
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: var(--dark);
+    font-size: 16px;
+}
+
+h3 {
+    color: var(--dark);
+}
+
+p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   INPUT / SELECT / BUTTON
+========================================================= */
+
+#yearSelect,
+.ai-form select,
+.budget-form select,
+.search-box input,
+.budget-form input {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    outline: none;
+    color: var(--text);
+    transition: .2s;
+}
+
+#yearSelect {
+    padding: 10px 14px;
+}
+
+#yearSelect:focus,
+.ai-form select:focus,
+.budget-form select:focus,
+.search-box input:focus,
+.budget-form input:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px #eff6ff;
+}
+
+button:not(.nav-item) {
+    border: none;
+    background: var(--blue);
+    color: white;
+    padding: 11px 16px;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+button:not(.nav-item):hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.stat-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.stat.blue .stat-icon {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.stat.cyan .stat-icon {
+    background: #ecfeff;
+    color: #0891b2;
+}
+
+.stat.blue2 .stat-icon {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.stat.darkblue .stat-icon {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.stat span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.stat strong {
+    display: inline-block;
+    color: var(--dark);
+    font-size: 22px;
+    margin-top: 3px;
+}
+
+.stat small {
+    margin-left: 4px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 18px;
+}
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 3px 15px rgba(30,64,175,.025);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.card-header p {
+    margin-top: 3px;
+}
+
+.info {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.chart-card {
+    height: 390px;
+}
+
+.chart-card canvas {
+    max-height: 300px;
+}
+
+
+/* =========================================================
+   FACTORS
+========================================================= */
+
 .factor {
     margin-bottom: 16px;
 }
@@ -1846,4 +2280,1491 @@ input:focus {
         transform: none;
     }
 
+}
+
+
+/* =========================================================
+   AI
+========================================================= */
+
+.ai-card {
+    margin-top: 18px;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 15px;
+    padding: 18px;
+    display: flex;
+    gap: 13px;
+}
+
+.ai-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    background: #fff;
+    color: var(--blue);
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.ai-card h2 {
+    margin-bottom: 5px;
+}
+
+.ai-form {
+    max-width: 700px;
+}
+
+.ai-form h2 {
+    margin-bottom: 5px;
+}
+
+.ai-form p {
+    margin-bottom: 18px;
+}
+
+.ai-form select {
+    width: 100%;
+    padding: 12px 13px;
+    margin-bottom: 12px;
+}
+
+.ai-form button {
+    width: 100%;
+}
+
+.ai-result {
+    max-width: 900px;
+    margin-top: 18px;
+}
+
+.ai-result:empty {
+    display: none;
+}
+
+.ai-result .card {
+    margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   PROVINCES
+========================================================= */
+
+.search-box {
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 13px 15px;
+    font-size: 12px;
+}
+
+.province-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.province-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 17px;
+    transition: .2s;
+}
+
+.province-card:hover {
+    border-color: #bfdbfe;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(37,99,235,.07);
+}
+
+.province-card h3 {
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.province-card p {
+    font-size: 10px;
+}
+
+.province-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.province-score span {
+    font-size: 9px;
+    color: var(--muted);
+}
+
+.province-score strong {
+    color: var(--blue);
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   TRENDS
+========================================================= */
+
+.trend-card {
+    min-height: 500px;
+}
+
+.trend-chart-container {
+    height: 390px;
+    position: relative;
+}
+
+.trend-chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* =========================================================
+   FACTOR PAGE
+========================================================= */
+
+.factor-page-grid {
+    display: grid;
+    grid-template-columns: 1.4fr .8fr;
+    gap: 18px;
+    max-width: 1100px;
+}
+
+.factor-main {
+    min-height: 430px;
+}
+
+.factor-row {
+    margin-bottom: 22px;
+}
+
+.factor-explanation {
+    background: #f8fbff;
+}
+
+.factor-explanation .ai-icon {
+    margin-bottom: 20px;
+}
+
+.factor-explanation h2 {
+    margin: 8px 0;
+}
+
+
+/* =========================================================
+   RANKING TABLE
+========================================================= */
+
+.ranking-card {
+    width: 100%;
+    overflow: hidden;
+}
+
+.ranking-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.ranking-table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.ranking-table td {
+    padding: 15px;
+    font-size: 12px;
+    color: var(--text);
+    border-bottom: 1px solid #eef2f7;
+}
+
+.ranking-table tbody tr {
+    transition: .2s;
+}
+
+.ranking-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.ranking-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.ranking-number.rank-gold {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.ranking-number.rank-silver {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.ranking-number.rank-bronze {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.ranking-table td strong {
+    color: var(--dark);
+    font-size: 12px;
+}
+
+.region {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 9px;
+}
+
+.score-container {
+    min-width: 130px;
+}
+
+.score {
+    display: block;
+    color: var(--blue);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.score-bar {
+    width: 100%;
+    height: 5px;
+    background: #eef2f7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.score-bar span {
+    display: block;
+    height: 100%;
+    background: #3b82f6;
+    border-radius: inherit;
+}
+
+
+/* =========================================================
+   SHAP
+========================================================= */
+
+.shap-card {
+    min-height: 500px;
+}
+
+.shap-chart-container {
+    height: 400px;
+    position: relative;
+}
+
+.shap-card canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* =========================================================
+   MODEL PERFORMANCE
+========================================================= */
+
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.model-card {
+    position: relative;
+    min-height: 260px;
+}
+
+.model-card.best {
+    border: 1px solid #93c5fd;
+    background: #fafdff;
+}
+
+.model-number {
+    display: inline-block;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.best-label {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    background: #dbeafe;
+    color: var(--blue);
+    font-size: 8px;
+    font-weight: 700;
+    padding: 5px 7px;
+    border-radius: 5px;
+}
+
+.model-card h2 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.model-type {
+    display: inline-block;
+    font-size: 9px;
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 5px 7px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.model-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.model-metrics div {
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 9px;
+}
+
+.model-metrics span {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.model-metrics strong {
+    display: block;
+    color: var(--blue);
+    font-size: 20px;
+    margin-top: 4px;
+}
+
+.model-note {
+    margin-top: 18px;
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    background: #f8fbff;
+}
+
+
+
+
+/* =========================================================
+   BUDGET
+========================================================= */
+
+.budget-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    max-width: 1000px; 
+} 
+
+.budget-form label { 
+    display: block; 
+    font-size: 11px; 
+    font-weight: 600; 
+    color: #000000; 
+    margin-top: 15px; 
+    margin-bottom: 6px; 
+} 
+
+.budget-form input, 
+.budget-form select {    
+    width: 100%; 
+    padding: 12px 13px; 
+    font-size: 12px; 
+} 
+
+.budget-form button { 
+    width: 100%; 
+    margin-top: 20px; 
+} 
+
+/* ช่องจังหวัดปลายทาง */
+.budget-destination { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: #030303; 
+    border: 1px solid #000000; 
+    border-radius: 10px; 
+    padding: 13px; 
+    margin-bottom: 8px; 
+    font-size: 11px; 
+} 
+
+/* ชื่อจังหวัด เช่น กรุงเทพมหานคร */
+.budget-destination strong {  
+    color: #faf4f4;              /* สีตัวหนังสือ */
+    background: #080808;         /* สีพื้นหลังชื่อจังหวัด */
+    font-size: 13px;    
+    padding: 2px 6px;  
+    border-radius: 4px;  
+} 
+
+.budget-result h2 { 
+    margin-top: 5px; 
+    margin-bottom: 20px; 
+} 
+
+.budget-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 14px 0; 
+    border-bottom: 1px solid #020202; 
+    font-size: 11px; 
+} 
+
+.budget-item strong { 
+    color: var(--dark); 
+} 
+
+.budget-result hr { 
+    border: none; 
+    border-top: 1px solid var(--border); 
+    margin: 10px 0; 
+} 
+
+.budget-total, 
+.budget-remaining { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 12px 0; 
+    font-size: 12px; 
+} 
+
+.budget-total strong { 
+    color: var(--dark); 
+    font-size: 20px; 
+} 
+
+.budget-remaining { 
+    background: #0f0f0f; 
+    border-radius: 9px; 
+    padding: 13px; 
+    margin-top: 5px;
+    color: #f4eeee;
+} 
+
+.budget-remaining strong { 
+    color: #fbf4f4; 
+    font-size: 16px; 
+}
+
+.budget-status { 
+    margin-top: 15px; 
+    padding: 12px; 
+    border-radius: 9px; 
+    background: #090909; 
+    color: var(--muted); 
+    text-align: center; 
+    font-size: 10px; 
+} 
+
+.budget-status.success { 
+    background: #f9f5f5; 
+    color: var(--success); 
+} 
+
+.budget-status.danger { 
+    background: #060606; 
+    color: var(--danger); 
+} 
+
+.budget-breakdown { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    margin-top: 15px; 
+} 
+
+.budget-breakdown div { 
+    background: #040404; 
+    border: 1px solid var(--border); 
+    border-radius: 9px; 
+    padding: 12px; 
+} 
+
+.budget-breakdown span { 
+    display: block; 
+    font-size: 9px; 
+    color: var(--muted); 
+} 
+
+.budget-breakdown strong { 
+    display: block; 
+    margin-top: 4px; 
+    font-size: 13px; 
+    color: var(--dark); 
+}
+
+
+/* =========================================================
+   REPORTS
+========================================================= */
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    max-width: 800px;
+}
+
+.report > span {
+    display: inline-block;
+    color: var(--blue);
+    background: var(--blue-light);
+    padding: 5px 7px;
+    border-radius: 5px;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.report h2 {
+    margin: 14px 0 7px;
+}
+
+.report button {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   RESPONSIVE 
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .province-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .model-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+
+    .factor-page-grid,
+    .budget-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .model-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 850px) {
+
+    .sidebar {
+        width: 70px;
+        padding: 18px 10px;
+    }
+
+    .logo > div:last-child,
+    .nav-item > span:not(.nav-icon),
+    .menu-badge,
+    .system-card {
+        display: none;
+    }
+
+    .logo {
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+
+    .nav-item {
+        justify-content: center;
+    }
+
+    .main {
+        margin-left: 70px;
+        padding: 25px 18px;
+    }
+
+    .province-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .province-grid,
+    .model-grid,
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main {
+        padding: 20px 12px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    .chart-card {
+        height: 330px;
+    }
+
+    #map {
+        height: 300px;
+    }
+
+    #mapLarge {
+        height: 450px;
+    }
+
+    .trend-chart-container {
+        height: 300px;
+    }
+
+    .shap-chart-container {
+        height: 300px;
+    }
+
+    .budget-breakdown {
+        grid-template-columns: 1fr;
+    }
+
+    :root {
+    --premium-primary: #2563eb;
+    --premium-cyan: #06b6d4;
+    --premium-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+    --premium-shadow-hover: 0 18px 45px rgba(15, 23, 42, .14);
+}
+
+}
+
+
+/* =========================================================
+   PREMIUM UI
+========================================================= */
+
+:root {
+    --premium-primary: #2563eb;
+    --premium-cyan: #06b6d4;
+    --premium-shadow: 0 10px 35px rgba(30, 50, 90, .07);
+    --premium-shadow-hover: 0 18px 45px rgba(30, 50, 90, .13);
+}
+
+
+/* BODY */
+
+body {
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(37, 99, 235, .07),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(6, 182, 212, .06),
+            transparent 28%
+        ),
+        var(--bg);
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    background:
+        linear-gradient(
+            180deg,
+            #0b1220 0%,
+            #101a2d 100%
+        );
+
+    border-right: 1px solid rgba(255,255,255,.05);
+
+    box-shadow:
+        8px 0 35px rgba(0,0,0,.08);
+}
+
+.logo {
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+}
+
+.logo-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 8px 25px rgba(37,99,235,.35);
+}
+
+.logo h2 {
+    color: #fff;
+}
+
+.logo span {
+    color: #8ea0bb;
+}
+
+
+/* NAV */
+
+.nav-item {
+    position: relative;
+    margin: 4px 10px;
+    border-radius: 12px;
+    transition: .25s ease;
+    color: #94a3b8;
+}
+
+.nav-item:hover {
+    background: rgb(0, 0, 0);
+    color: #fff;
+    transform: translateX(3px);
+}
+
+.nav-item.active {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(37,99,235,.25),
+            rgba(6,182,212,.08)
+        );
+
+    color: #fff;
+
+    box-shadow:
+        inset 3px 0 0 #3b82f6;
+}
+
+.nav-item.active::after {
+    content: "";
+
+    position: absolute;
+    right: 12px;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #38bdf8;
+
+    box-shadow:
+        0 0 12px #38bdf8;
+}
+
+.menu-badge {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        ) !important;
+
+    color: #fff !important;
+}
+
+
+/* PAGE TITLE */
+
+.page-title {
+    position: relative;
+}
+
+.page-title::before {
+    content: "";
+
+    position: absolute;
+
+    left: -14px;
+    top: 4px;
+
+    width: 4px;
+    height: 48px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            #2563eb,
+            #06b6d4
+        );
+}
+
+.page-title h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+
+/* CARD */
+
+.card {
+    background: rgba(255,255,255,.92);
+
+    border:
+        1px solid rgba(226,232,240,.85);
+
+    border-radius: 18px;
+
+    box-shadow:
+        var(--premium-shadow);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        var(--premium-shadow-hover);
+
+    border-color:
+        rgba(37,99,235,.15);
+}
+
+
+/* STAT */
+
+.stat {
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.stat:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        var(--premium-shadow-hover);
+}
+
+.stat strong {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+
+/* FACTOR */
+
+.progress,
+.factor-track {
+    border-radius: 999px;
+}
+
+.progress div,
+.factor-track div {
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 0 12px rgba(37,99,235,.25);
+}
+
+
+/* PROVINCE */
+
+.province-card {
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.95);
+
+    box-shadow:
+        0 8px 25px rgba(30,50,90,.05);
+
+    transition:
+        .25s ease;
+}
+
+.province-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: .3s ease;
+}
+
+.province-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 40px rgba(30,50,90,.12);
+}
+
+.province-card:hover::after {
+    transform: scaleX(1);
+}
+
+
+/* AI */
+
+.ai-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    color: #fff;
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.25);
+}
+
+.ai-result {
+    background:
+        linear-gradient(
+            135deg,
+            #f8fbff,
+            #f0f9ff
+        );
+
+    border:
+        1px solid #dbeafe;
+
+    border-radius: 16px;
+}
+
+.ai-score {
+    font-size: 52px;
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* BUTTON */
+
+button:not(.nav-item) {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    box-shadow:
+        0 6px 18px rgba(37,99,235,.18);
+}
+
+button:not(.nav-item):hover {
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #0891b2
+        );
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* INPUT */
+
+select,
+input {
+    transition: .2s ease;
+}
+
+select:focus,
+input:focus {
+    border-color:
+        #2563eb !important;
+
+    box-shadow:
+        0 0 0 4px rgba(37,99,235,.08) !important;
+}
+
+
+/* MAP */
+
+#map,
+#mapLarge {
+    border-radius: 16px;
+
+    box-shadow:
+        var(--premium-shadow);
+}
+
+
+/* SHAP */
+
+.shap-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.shap-card::before {
+    content: "SHAP";
+
+    position: absolute;
+
+    right: 25px;
+    top: 15px;
+
+    font-size: 70px;
+    font-weight: 900;
+
+    color:
+        rgba(37,99,235,.035);
+}
+
+
+/* MODEL */
+
+.model-card {
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.model-card:hover {
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        var(--premium-shadow-hover);
+}
+
+
+/* BUDGET */
+
+.budget-result {
+    background:
+        linear-gradient(
+            145deg,
+            #0f172a,
+            #172554
+        ) !important;
+
+    color: white;
+
+    border: none !important;
+
+    box-shadow:
+        0 18px 45px rgba(15,23,42,.18);
+}
+
+.budget-result h2,
+.budget-result strong {
+    color: white;
+}
+
+
+/* REPORT */
+
+.report {
+    position: relative;
+    overflow: hidden;
+}
+
+.report::before {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -50px;
+    bottom: -50px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(37,99,235,.06);
+}
+
+.report:hover {
+    transform:
+        translateY(-6px);
+}
+
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            #2563eb,
+            #06b6d4
+        );
+
+    border-radius: 999px;
+}
+
+
+/* PAGE ANIMATION */
+
+.active-page {
+    animation:
+        pageFade .35s ease;
+}
+
+@keyframes pageFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   PREMIUM MOBILE
+   อยู่ท้ายไฟล์และแยกจาก MEDIA เดิม
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .page-title h1 {
+        font-size: 28px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .page-title h1 {
+        font-size: 24px;
+    }
+
+    .page-title::before {
+        display: none;
+    }
+
+    .stat strong {
+        font-size: 23px;
+    }
+
+    .ai-score {
+        font-size: 42px;
+    }
+
+    .card:hover,
+    .province-card:hover,
+    .model-card:hover,
+    .report:hover {
+        transform: none;
+    }
+
+}
+/* =========================================================
+   PROVINCE TOURISM SCORE CHART
+========================================================= */
+
+.province-chart-card {
+    min-height: 390px;
+    position: relative;
+    overflow: hidden;
+}
+
+.province-chart-card .card-header {
+    margin-bottom: 15px;
+}
+
+
+/* SELECT จังหวัด */
+
+.province-chart-select {
+    margin-bottom: 18px;
+}
+
+.province-chart-select label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 7px;
+}
+
+.province-chart-select select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: white;
+    color: var(--text);
+    font-size: 12px;
+    outline: none;
+}
+
+.province-chart-select select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37,99,235,.08);
+}
+
+
+/* SCORE HEADER */
+
+.province-score-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #ecfeff
+    );
+
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+
+    padding: 12px 15px;
+    margin-bottom: 15px;
+}
+
+.province-score-header span {
+    display: block;
+    font-size: 9px;
+    color: #64748b;
+    margin-bottom: 3px;
+}
+
+.province-score-header strong {
+    display: block;
+    font-size: 25px;
+    font-weight: 800;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #06b6d4
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.province-score-badge {
+    font-size: 8px;
+    font-weight: 700;
+
+    color: #2563eb;
+    background: #dbeafe;
+
+    padding: 6px 9px;
+    border-radius: 6px;
+}
+
+
+/* CHART */
+
+.province-chart-container {
+    height: 175px;
+    position: relative;
+}
+
+.province-chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .province-chart-card {
+        min-height: 380px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .province-chart-container {
+        height: 200px;
+    }
+
+}
+/* =========================================================
+   PROVINCE TOURISM SCORE CHART
+========================================================= */
+
+.province-chart-card {
+    padding: 24px;
+}
+
+.province-chart-card h2 {
+    margin-bottom: 8px;
+}
+
+.province-chart-card p {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.province-chart-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.province-chart-select {
+    width: 100%;
+    height: 52px;
+    padding: 0 15px;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #1e293b;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+}
+
+.province-chart-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.province-score-summary {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 14px;
+    background: #eff6ff;
+}
+
+.province-score-summary span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.province-score-summary strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 30px;
+    color: #2563eb;
+}
+
+.province-chart-wrapper {
+    position: relative;
+    height: 300px;
+    margin-top: 20px;
 }
