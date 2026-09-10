@@ -962,150 +962,158 @@ button:not(.nav-item):hover {
 }
 
 
+
+
 /* =========================================================
    BUDGET
 ========================================================= */
 
-.budget-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 1000px;
-}
+.budget-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    max-width: 1000px; 
+} 
 
-.budget-form label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text);
-    margin-top: 15px;
-    margin-bottom: 6px;
-}
+.budget-form label { 
+    display: block; 
+    font-size: 11px; 
+    font-weight: 600; 
+    color: #000000; 
+    margin-top: 15px; 
+    margin-bottom: 6px; 
+} 
 
-.budget-form input,
-.budget-form select {
-    width: 100%;
-    padding: 12px 13px;
-    font-size: 12px;
-}
+.budget-form input, 
+.budget-form select {    
+    width: 100%; 
+    padding: 12px 13px; 
+    font-size: 12px; 
+} 
 
-.budget-form button {
-    width: 100%;
-    margin-top: 20px;
-}
+.budget-form button { 
+    width: 100%; 
+    margin-top: 20px; 
+} 
 
-.budget-destination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #eff6ff;
-    border: 1px solid #dbeafe;
-    border-radius: 10px;
-    padding: 13px;
-    margin-bottom: 8px;
-    font-size: 11px;
-}
+/* ช่องจังหวัดปลายทาง */
+.budget-destination { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: #030303; 
+    border: 1px solid #000000; 
+    border-radius: 10px; 
+    padding: 13px; 
+    margin-bottom: 8px; 
+    font-size: 11px; 
+} 
 
-.budget-destination strong {
-    color: var(--blue);
-    font-size: 13px;
-}
+/* ชื่อจังหวัด เช่น กรุงเทพมหานคร */
+.budget-destination strong {  
+    color: #faf4f4;              /* สีตัวหนังสือ */
+    background: #080808;         /* สีพื้นหลังชื่อจังหวัด */
+    font-size: 13px;    
+    padding: 2px 6px;  
+    border-radius: 4px;  
+} 
 
-.budget-result h2 {
+.budget-result h2 { 
+    margin-top: 5px; 
+    margin-bottom: 20px; 
+} 
+
+.budget-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 14px 0; 
+    border-bottom: 1px solid #020202; 
+    font-size: 11px; 
+} 
+
+.budget-item strong { 
+    color: var(--dark); 
+} 
+
+.budget-result hr { 
+    border: none; 
+    border-top: 1px solid var(--border); 
+    margin: 10px 0; 
+} 
+
+.budget-total, 
+.budget-remaining { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 12px 0; 
+    font-size: 12px; 
+} 
+
+.budget-total strong { 
+    color: var(--dark); 
+    font-size: 20px; 
+} 
+
+.budget-remaining { 
+    background: #0f0f0f; 
+    border-radius: 9px; 
+    padding: 13px; 
     margin-top: 5px;
-    margin-bottom: 20px;
+    color: #f4eeee;
+} 
+
+.budget-remaining strong { 
+    color: #fbf4f4; 
+    font-size: 16px; 
 }
 
-.budget-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #eef2f7;
-    font-size: 11px;
-}
+.budget-status { 
+    margin-top: 15px; 
+    padding: 12px; 
+    border-radius: 9px; 
+    background: #090909; 
+    color: var(--muted); 
+    text-align: center; 
+    font-size: 10px; 
+} 
 
-.budget-item strong {
-    color: var(--dark);
-}
+.budget-status.success { 
+    background: #f9f5f5; 
+    color: var(--success); 
+} 
 
-.budget-result hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 10px 0;
-}
+.budget-status.danger { 
+    background: #060606; 
+    color: var(--danger); 
+} 
 
-.budget-total,
-.budget-remaining {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    font-size: 12px;
-}
+.budget-breakdown { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    margin-top: 15px; 
+} 
 
-.budget-total strong {
-    color: var(--dark);
-    font-size: 20px;
-}
+.budget-breakdown div { 
+    background: #040404; 
+    border: 1px solid var(--border); 
+    border-radius: 9px; 
+    padding: 12px; 
+} 
 
-.budget-remaining {
-    background: var(--blue-light);
-    border-radius: 9px;
-    padding: 13px;
-    margin-top: 5px;
-}
+.budget-breakdown span { 
+    display: block; 
+    font-size: 9px; 
+    color: var(--muted); 
+} 
 
-.budget-remaining strong {
-    color: var(--blue);
-    font-size: 16px;
-}
-
-.budget-status {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 9px;
-    background: #f8fafc;
-    color: var(--muted);
-    text-align: center;
-    font-size: 10px;
-}
-
-.budget-status.success {
-    background: #f0fdf4;
-    color: var(--success);
-}
-
-.budget-status.danger {
-    background: #fef2f2;
-    color: var(--danger);
-}
-
-.budget-breakdown {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.budget-breakdown div {
-    background: #f8fafc;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 12px;
-}
-
-.budget-breakdown span {
-    display: block;
-    font-size: 9px;
-    color: var(--muted);
-}
-
-.budget-breakdown strong {
-    display: block;
-    margin-top: 4px;
-    font-size: 13px;
-    color: var(--dark);
+.budget-breakdown strong { 
+    display: block; 
+    margin-top: 4px; 
+    font-size: 13px; 
+    color: var(--dark); 
 }
 
 
@@ -1140,7 +1148,7 @@ button:not(.nav-item):hover {
 
 
 /* =========================================================
-   RESPONSIVE เดิม
+   RESPONSIVE 
 ========================================================= */
 
 @media (max-width: 600px) {
@@ -1353,7 +1361,7 @@ body {
 }
 
 .nav-item:hover {
-    background: rgba(255,255,255,.06);
+    background: rgb(0, 0, 0);
     color: #fff;
     transform: translateX(3px);
 }
